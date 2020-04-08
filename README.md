@@ -12,14 +12,17 @@ librosaを用いて簡易的にBPMを推定し,候補音源の平均BPMに近い
 __save__  
 プレイリストを.m3uで出力.これををWALKMANの適切な場所にコピーすると,WALKMAN内でプレイリストが認識される.  
 ```
-├ WALKMAN ─ MUSIC────────── MUSICCLIP  
-│           ├──playlist.m3u │
-│                           ├──アルバムA  
-│                           │　　　　　└──音源.mp3  
-│                           │  
-│                           ├──アルバムB  
-│                           │　　　　　└──音源2.flac  
-│                           │　  
+├ WALKMAN ─ MUSIC ───────
+│           ├── playlist.m3u
+│           │
+│           ├── MUSICCLIP  
+│           │   │       
+│           │   ├── アルバムA  
+│           │   │　　　 　　└── 音源.mp3  
+│           │   │  
+│           │   ├── アルバムB  
+│           │   │　　 　　　└── 音源2.flac  
+│           │   │　  
 ```  
 __Drag and Drop__  
 フレーム内にフォルダorファイルをDnDすると,`add_file`or`add_folder`の挙動をする.  
