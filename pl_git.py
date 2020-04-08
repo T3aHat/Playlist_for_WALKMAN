@@ -192,11 +192,8 @@ class App(wx.Frame):
     def save(self, event):
         with wx.FileDialog(self, "Save playlist", wildcard="M3U files (*.m3u)|*.m3u",
                            style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT) as fileDialog:
-            
             if fileDialog.ShowModal() == wx.ID_CANCEL:
-                return     # the user changed their mind
-
-            # save the current contents in the file
+                return
             pathname = fileDialog.GetPath()
             try:
                 with open(pathname, 'w') as f:
@@ -209,7 +206,7 @@ class App(wx.Frame):
         print("analyse()")
         datalist=[]
         try:
-            with open("path/to/datalist.csv","r")as f:
+            with open("datalist.csv","r")as f:
                 reader=csv.reader(f)
                 for r in reader:
                     datalist.append(r)
@@ -224,25 +221,31 @@ class App(wx.Frame):
             titlelist_isin_datalist.append(datalist[i][0])
         bpm_list=[]
         changed=False#IO減らすため.なくても正常に動く
+        count=0
         for abs_path in abs_pathlist:
             title=Path(abs_path).stem
             if(title not in titlelist_isin_datalist):
-                print("未解析音源を解析します")
+                count+=1
+        i=0
+        for abs_path in abs_pathlist:
+            title=Path(abs_path).stem
+            if(title not in titlelist_isin_datalist):
                 #print(str(title)+":なかったから解析")
                 print("\r"+"解析中:"+title)
                 analysedata=bpm_analyse(abs_path)
-                print("解析進捗="+str(int(abs_pathlist.index(abs_path)*100/len(abs_pathlist)))+"%"+"\033[1A"+"\033[2K",end="")
+                i+=1
+                print("解析進捗="+str(int(i*100/count))+"%"+"\033[1A"+"\033[2K",end="")
                 bpm_list.append(analysedata)
                 datalist.append(analysedata)
-                titlelist_isin_datalist.append(datalist[-1][0])
+                titlelist_isin_datalist.append(datalist[-1][0])#怪しい
                 changed=True
             #else:
                 #print(str(title)+":あった")
+        print("\033[E")
         if changed:
-            with open("path/to/datalist.csv","a")as f:
+            with open("datalist.csv","a")as f:
                 writer=csv.writer(f,lineterminator="\n")
                 writer.writerows(bpm_list)
-            print("update datalist.csv")
         get_reclistdata=get_reclist(datalist,titlelist_isin_datalist)
         self.reclist=get_reclistdata[0]
         self.avgbpm=get_reclistdata[1]
@@ -268,7 +271,6 @@ class Dialog(wx.Dialog):
         self.dialistctrl.InsertColumn(1,"BPM",wx.LIST_FORMAT_LEFT,100)
 
         for i in range(len(self.rectitlelist)):
-            print("dialog_No."+str(i)+" "+str(self.rectitlelist[i]))
             self.dialistctrl.InsertItem(i,self.rectitlelist[i])
             self.dialistctrl.SetItem(i,1,self.recbpmlist[i])
 
@@ -334,7 +336,7 @@ if __name__ == '__main__':
     reclist=[]
 
     app=wx.App()
-    App(None,wx.ID_ANY,"Make_Playlist_for_A40series")
+    App(None,wx.ID_ANY,"Make a playlist for A40series")
     app.MainLoop()
 
 
