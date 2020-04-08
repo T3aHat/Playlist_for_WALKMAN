@@ -10,7 +10,7 @@ import librosa
 import csv
 import warnings
 
-warnings.filterwarnings("ignore")#librosaのerrorが煩い
+warnings.filterwarnings("ignore")#librosaのwarningsが煩い
 extensions={
     ".mp3",".flac",".wav",".m4a"
 }
@@ -235,6 +235,7 @@ class App(wx.Frame):
                 analysedata=bpm_analyse(abs_path)
                 i+=1
                 print("解析進捗="+str(int(i*100/count))+"%"+"\033[1A"+"\033[2K",end="")
+                print("解析進捗="+str(int(abs_pathlist.index(abs_path)+1*100/len(abs_pathlist)))+"%"+"\033[1A"+"\033[2K",end="")
                 bpm_list.append(analysedata)
                 datalist.append(analysedata)
                 titlelist_isin_datalist.append(datalist[-1][0])#怪しい
