@@ -231,7 +231,7 @@ class App(wx.Frame):
                 #print(str(title)+":なかったから解析")
                 print("\r"+"解析中:"+title)
                 analysedata=bpm_analyse(abs_path)
-                print("解析進捗="+str(int(abs_pathlist.index(abs_path)*100/len(abs_pathlist)))+"%"+"\033[1A"+"\033[2K",end="")
+                print("解析進捗="+str(int(abs_pathlist.index(abs_path)+1*100/len(abs_pathlist)))+"%"+"\033[1A"+"\033[2K",end="")
                 bpm_list.append(analysedata)
                 datalist.append(analysedata)
                 titlelist_isin_datalist.append(datalist[-1][0])
