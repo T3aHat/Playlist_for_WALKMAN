@@ -10,7 +10,7 @@ ___delete__
 __analyse__  
 librosaを用いて簡易的にBPMを推定し,候補音源の平均BPMに近いものを解析済み音源の中からおすすめする.精度は正直よくない.  
 __save__  
-プレイリストを.m3uで出力.これををWALKMANの適切な場所にコピーすると,WALKMAN内でプレイリストが認識される.  
+プレイリストを.m3uで出力.これをWALKMANの適切な場所にコピーすると,WALKMAN内でプレイリストが認識される.  
 ```
 ├ WALKMAN ─ MUSIC ───────
 │           ├── playlist.m3u
@@ -28,8 +28,8 @@ __Drag and Drop__
 フレーム内にフォルダorファイルをDnDすると,`add_file`or`add_folder`の挙動をする.  
 __shift+leftclick(or UpDown button)__  
 ある音源からクリックした音源までを連続して全選択.  
-__shift+rightclick__  
-音源を複数選択.  
+__ctrl+shift+leftclick__  
+複数選択した音源のうち,クリックしたものだけ選択解除.  
 __titleColumn__  
 左クリックで音源を辞書順にソート.  
 
